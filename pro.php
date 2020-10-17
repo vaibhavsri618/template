@@ -1,10 +1,54 @@
+<?php 
+require 'admin/connection.php';
+
+$limit=10;
+if (isset($_GET['pageid'])) {
+    $pageno=$_GET['pageid'];
+    
+} else {
+    $pageno=1;
+}
+$offset=($pageno-1)*$limit;
+
+session_start();
+
+
+if (isset($_GET['mid'])) {
+    $mid=$_GET['mid'];
+    
+}
+
+
+?>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+                $(document).ready(function() {
+                  $(".quickview").click(function() {
+                   
+                    var pid=$(this).data("productid");
+                    console.log(pid)
+                  
+                    $.ajax({
+                        url: 'pro.php',
+                        type: 'POST',
+                        data: {proid:pid},
+                        success: function(data) {
+                          //Optional callback function on success
+                        }
+                      }); });
+                });
+              </script>
+             
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">    
-    <title>Daily Shop | Contact</title>
+    <title>Daily Shop | Product</title>
     
     <!-- Font awesome -->
     <link href="css/font-awesome.css" rel="stylesheet">
@@ -39,17 +83,19 @@
     <![endif]-->
 
   </head>
-  <body> 
-    <!-- wpf loader Two -->
+  <!-- !Important notice -->
+  <!-- Only for product page body tag have to added .productPage class -->
+  <body class="productPage">  
+   <!-- wpf loader Two -->
     <div id="wpf-loader-two">          
       <div class="wpf-loader-two-inner">
         <span>Loading</span>
       </div>
     </div> 
     <!-- / wpf loader Two -->       
-    <!-- SCROLL TOP BUTTON -->
+ <!-- SCROLL TOP BUTTON -->
     <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
-    <!-- END SCROLL TOP BUTTON -->
+  <!-- END SCROLL TOP BUTTON -->
 
 
   <!-- Start header section -->
@@ -132,36 +178,46 @@
               </div>
               <!-- / logo  -->
                <!-- cart box -->
-              <div class="aa-cartbox">
+               <div class="aa-cartbox">
                 <a class="aa-cart-link" href="#">
                   <span class="fa fa-shopping-basket"></span>
                   <span class="aa-cart-title">SHOPPING CART</span>
-                  <span class="aa-cart-notify">2</span>
+                  <span class="aa-cart-notify"><?php echo count($_SESSION["cart1"])  ?></span>
                 </a>
                 <div class="aa-cartbox-summary">
-                  <ul>
-                    <li>
-                      <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg" alt="img"></a>
-                      <div class="aa-cartbox-info">
-                        <h4><a href="#">Product Name</a></h4>
-                        <p>1 x $250</p>
-                      </div>
-                      <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                    </li>
-                    <li>
-                      <a class="aa-cartbox-img" href="#"><img src="img/woman-small-1.jpg" alt="img"></a>
-                      <div class="aa-cartbox-info">
-                        <h4><a href="#">Product Name</a></h4>
-                        <p>1 x $250</p>
-                      </div>
-                      <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                    </li>                    
+                  
+                  <?php
+                    $html="";
+                    $sum=0;
+                    $html='<ul>';
+                    foreach($_SESSION['cart1'] as $value) {
+                      $html.='<li>';
+                      $html.='<a class="aa-cartbox-img" href="#"><img src="admin/images/'.$value["image"].'" alt="img"></a>';
+                      $html.='<div class="aa-cartbox-info">';
+
+                      $html.='<h4><a href="#">'.$value['name'].'</a></h4>';
+                      $html.='<p>'.$value['quantity']*$value['price'].'</p>';
+                      $html.='</div>';
+                      $html.=' <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
+                      ';
+                      $a=$value["price"]*$value["quantity"];
+            
+                      $sum+=$a;
+
+                      $html.='</li>';
+                      
+                      
+                      
+                    } 
+                    echo $html;
+
+                    ?>
                     <li>
                       <span class="aa-cartbox-total-title">
                         Total
                       </span>
                       <span class="aa-cartbox-total-price">
-                        $500
+                        <?php echo $sum ?>
                       </span>
                     </li>
                   </ul>
@@ -294,7 +350,7 @@
                 </ul>
               </li>
               <li><a href="#">Furniture</a></li>            
-              <li><a href="blog-archive.html">Blog <span class="caret"></span></a>
+             <li><a href="blog-archive.html">Blog <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
                   <li><a href="blog-archive.html">Blog Style 1</a></li>
                   <li><a href="blog-archive-2.html">Blog Style 2</a></li>
@@ -324,86 +380,406 @@
    <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
-        <h2>Contact</h2>
+        <h2>Fashion</h2>
         <ol class="breadcrumb">
           <li><a href="index.html">Home</a></li>         
-          <li class="active">Contact</li>
+          <li class="active">Women</li>
         </ol>
       </div>
      </div>
    </div>
   </section>
   <!-- / catg header banner section -->
-<!-- start contact section -->
- <section id="aa-contact">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="aa-contact-area">
-           <div class="aa-contact-top">
-             <h2>We are wating to assist you..</h2>
-             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, quos.</p>
-           </div>
-           <!-- contact map -->
-           <div class="aa-contact-map">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.3714257064535!2d-86.7550931378034!3d34.66757706940219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8862656f8475892d%3A0xf3b1aee5313c9d4d!2sHuntsville%2C+AL+35813%2C+USA!5e0!3m2!1sen!2sbd!4v1445253385137" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-           </div>
-           <!-- Contact address -->
-           <div class="aa-contact-address">
-             <div class="row">
-               <div class="col-md-8">
-                 <div class="aa-contact-address-left">
-                   <form class="comments-form contact-form" action="">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">                        
-                          <input type="text" placeholder="Your Name" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">                        
-                          <input type="email" placeholder="Email" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                     <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">                        
-                          <input type="text" placeholder="Subject" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">                        
-                          <input type="text" placeholder="Company" class="form-control">
-                        </div>
-                      </div>
-                    </div>                  
+
+  <!-- product category -->
+  <section id="aa-product-category">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-8 col-md-push-3">
+          <div class="aa-product-catg-content">
+            <div class="aa-product-catg-head">
+              <div class="aa-product-catg-head-left">
+                <form action="" class="aa-sort-form">
+                  <label for="">Sort by</label>
+                  <select name="">
+                    <option value="1" selected="Default">Default</option>
+                    <option value="2">Name</option>
+                    <option value="3">Price</option>
+                    <option value="4">Date</option>
+                  </select>
+                </form>
+                <form action="" class="aa-show-form">
+                  <label for="">Show</label>
+                  <select name="">
+                    <option value="1" selected="12">12</option>
+                    <option value="2">24</option>
+                    <option value="3">36</option>
+                  </select>
+                </form>
+              </div>
+              <div class="aa-product-catg-head-right">
+                <a id="grid-catg" href="#"><span class="fa fa-th"></span></a>
+                <a id="list-catg" href="#"><span class="fa fa-list"></span></a>
+              </div>
+            </div>
+            <div class="aa-product-catg-body">
+              <ul class="aa-product-catg">
+                <!-- start single product item -->
+                    <?php
+                      $sql = "SELECT * FROM products LIMIT {$offset},{$limit}";
+                      $result = $conn->query($sql);
+                      
+                    if ($result->num_rows > 0) {
+                        // output data of each row
+                        while ($row = $result->fetch_assoc()) {
+                         
+                            echo "<li>";
+                            echo "<figure>";
+                            
+                            echo '<a class="aa-product-img" href="#"><img src="admin/images/'.$row['image'].'" alt="polo shirt img" style="width: 250px;height: 300px;"></a>';
+                            echo '<a class="aa-add-card-btn"href="product.php?mainid='.$row['product_id'].'"><span class="fa fa-shopping-cart"></span>Add To Cart</a>';
+                            echo '<figcaption>';
+                            echo '<h4 class="aa-product-title"><a href="#">'.$row['name'].'</a></h4>';
+                            echo '<span class="aa-product-price">&#8377;'.$row['price'].'</span><span class="aa-product-price"><del>$65.50</del></span>';
+                            echo '<p class="aa-product-descrip">"'.$row["long_description"].'"</p>';
+                            echo '</figcaption>';
+                            echo '</figure>';                         
+                            echo '<div class="aa-product-hvr-content">';
+                            echo '<a href="product.php?mid='.$row["product_id"].'" class="quickview" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal"><span class="fa fa-search"></span>';
+                            echo '<a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>';
+                            echo '<a href="#" class="quickview" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal" data-productid='.$row["product_id"].'><span class="fa fa-search"></span></a></a>';                            
+                            echo '</div>';
+                            echo '<span class="aa-badge aa-sale" href="#">SALE!</span>';
+                            echo '</li>';
                      
-                    <div class="form-group">                        
-                      <textarea class="form-control" rows="3" placeholder="Message"></textarea>
-                    </div>
-                    <button class="aa-secondary-btn">Send</button>
-                  </form>
-                 </div>
+                        
+                        
+                        
+                        }
+                    } else {
+                        echo "0 results";
+                    }
+                    ?>
+                    
+                 </ul>
+              <!-- quick view modal -->                  
+              <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">                      
+                    <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <div class="row">
+                        <!-- Modal view slider -->
+                        <div class="col-md-6 col-sm-6 col-xs-12">                              
+                          <div class="aa-product-view-slider">                                
+                            <div class="simpleLens-gallery-container" id="demo-1">
+                              <div class="simpleLens-container">
+                                  <div class="simpleLens-big-image-container">
+
+                                 
+                                    <?php
+
+                                      $sql6 = "SELECT * FROM products WHERE product_id=".$mid."";
+                                      $result6 = $conn->query($sql6);
+                                      
+                                      if ($result6->num_rows > 0) {
+                                        // output data of each row
+                                        while($row6 = $result6->fetch_assoc()) {
+
+                                          echo '<a class="simpleLens-lens-image" data-lens-image="admin/images/'.$row6['image'].'">';
+                                          echo '<img src="admin/images/'.$row6['image'].'" class="simpleLens-big-image">';
+                                      echo '</a>';
+                                      
+                                  
+                                         
+                                        
+                                      
+                                echo'</div>';
+                    
+                                echo'</div>';
+                                echo'</div>';
+                                echo'</div>';
+                                echo'</div>';
+                    
+                        echo'<div class="col-md-6 col-sm-6 col-xs-12">';
+                        echo '<div class="aa-product-view-content">';
+                          
+                                
+
+
+                                      echo'<h3>'.$row6["name"].'</h3>';
+                                      echo '<div class="aa-price-block">';;
+                                      echo  '<span class="aa-product-view-price">&#8377;'.$row6['price'].'</span>';
+                                      echo  '<p class="aa-product-avilability">Avilability: <span>In stock</span></p>';
+                                      echo '</div>';
+                                      echo '<p>'.$row6['long_description'].'</p>';
+                                      echo '<h4>Size</h4>';
+                                      echo '<div class="aa-prod-view-size">';
+                                      echo  '<a href="#">S</a>';
+                                      echo  '<a href="#">M</a>';
+                                      echo  '<a href="#">L</a>';
+                                      echo  '<a href="#">XL</a>';
+                                      echo '</div>';
+                                      echo '<div class="aa-prod-quantity">';
+                                      echo  '<form action="">';
+                                      echo   '<select name="" id="">';
+                                      echo   '<option value="0" selected="1">1</option>';
+                                      echo  '<option value="1">2</option>';
+                                      echo  '<option value="2">3</option>';
+                                      echo  '<option value="3">4</option>';
+                                      echo  '<option value="4">5</option>';
+                                      echo '</select>';
+                                      echo  '</form>';
+                                      echo  '<p class="aa-prod-category">';
+                                       echo   'Category: <a href="#">Polo T-Shirt</a>';
+                                      echo  '</p>';
+                                      echo '</div>';
+                                      echo '<div class="aa-prod-view-bottom">';
+                                      echo  '<a href="cart.php?cartid='.$row6['product_id'].'" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>';
+                                      echo  '<a href="product-detail.php?selid='.$row6['product_id'].'" class="aa-add-to-cart-btn">View Details</a>';
+
+                                             
+                                }
+                          } else {
+                                    echo "0 results";
+                            }
+                        ?>  
+                          
+                            </div>
+                                          
+                                  </div>
+                        </div>
+                      </div>
+                    </div>                        
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div>
+              <!-- / quick view modal -->   
+            </div>
+            <div class="aa-product-catg-pagination">
+                  <?php
+
+
+                    $sql1 = "SELECT * FROM products";
+                    $result1 = $conn->query($sql1);
+
+                    if ($result1->num_rows > 0) {
+
+
+
+                        $total=$result1->num_rows;
+                        $page=ceil($total/$limit);
+                        echo '<nav>';
+                        echo '<ul class="pagination">';
+                        echo  '<li>';
+                        if ($pageno > 1) {
+                            echo  '<a href="product.php?pageid='.($pageno-1).'" aria-label="Previous">';
+                            echo   '<span aria-hidden="true">&laquo;</span>';
+                            echo    '</a>';
+                            }
+        
+                        echo '</li>';
+                     
+                        for ($i=1; $i<=$page;$i++) {
+
+                            if ($i==$pageno) {
+                                $active="active";
+                            } else {
+                                $active="";
+
+                            }
+                            echo'<li class="'.$active.'"><a href="product.php?pageid='.$i.'">'.$i.'</a></li>';
+                  
+
+
+                        }
+                        // output data of each row
+                        // while($row = $result->fetch_assoc()) {
+                        //   echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+                        // }
+                    } else {
+                        echo "0 results";
+                    }
+
+                    echo'<li>';
+                    if ($pageno < $page) {
+                        echo'<a href="product.php?pageid='.($pageno+1).'" aria-label="Next">';
+                        echo '<span aria-hidden="true">&raquo;</span>';
+                        echo '</a>';
+                    }
+                    echo '</li>';
+                    echo '</ul>';
+                    echo '</nav>';
+
+
+                    ?>
+                  
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-4 col-md-pull-9">
+          <aside class="aa-sidebar">
+            <!-- single sidebar -->
+            <div class="aa-sidebar-widget">
+              <h3>Category</h3>
+              <?php
+                $sql2="SELECT * from categories";
+                $result2=$conn->query($sql2);
+                
+                if ($result2->num_rows > 0) {
+                    echo '<ul class="aa-catg-nav">';
+             
+                    while ($row2 = $result2->fetch_assoc()) {
+                          echo '<li><a href="filtercategories.php?cid='.$row2['id'].'">'.$row2['name'].'</a></li>';
+                
+                        
+                    
+                    }
+                    echo '</ul>';
+            
+                }
+               
+                else {
+                      echo "0 results";
+                }
+
+
+                ?>
                </div>
-               <div class="col-md-4">
-                 <div class="aa-contact-address-right">
-                   <address>
-                     <h4>DailyShop</h4>
-                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum modi dolor facilis! Nihil error, eius.</p>
-                     <p><span class="fa fa-home"></span>Huntsville, AL 35813, USA</p>
-                     <p><span class="fa fa-phone"></span>+ 021.343.7575</p>
-                     <p><span class="fa fa-envelope"></span>Email: support@dailyshop.com</p>
-                   </address>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
+            <!-- single sidebar -->
+            <div class="aa-sidebar-widget">
+              <h3>Tags</h3>
+              <?php
+                $sql3="SELECT * from tags";
+                $result3=$conn->query($sql3);
+                
+                if ($result3->num_rows > 0) {
+                    echo '<div class="tag-cloud">';
+             
+                    while ($row3 = $result3->fetch_assoc()) {
+                          echo '<a href="filtertags.php?tid='.$row3['id'].'">'.$row3['name'].'</a>';
+                
+                        
+                    
+                    }
+                    echo '</div>';
+            
+                }
+               
+                else {
+                      echo "0 results";
+                }
+
+
+                ?>
+              
+
+              </div>
+            <!-- single sidebar -->
+            <div class="aa-sidebar-widget">
+              <h3>Shop By Price</h3>              
+              <!-- price range -->
+              <div class="aa-sidebar-price-range">
+               <form action="">
+                  <div id="skipstep" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
+                  </div>
+                 <span id="skip-value-lower" class="example-val">80.00</span>
+                 <span id="skip-value-upper" class="example-val">200.00</span>
+                 <button class="aa-filter-btn" type="submit">Filter</button>
+               </form>
+              </div>              
+
+            </div>
+            <!-- single sidebar -->
+            <div class="aa-sidebar-widget">
+              <h3>Shop By Color</h3>
+              <div class="aa-color-tag">
+                <a class="aa-color-green" href="#"></a>
+                <a class="aa-color-yellow" href="#"></a>
+                <a class="aa-color-pink" href="#"></a>
+                <a class="aa-color-purple" href="#"></a>
+                <a class="aa-color-blue" href="#"></a>
+                <a class="aa-color-orange" href="#"></a>
+                <a class="aa-color-gray" href="#"></a>
+                <a class="aa-color-black" href="#"></a>
+                <a class="aa-color-white" href="#"></a>
+                <a class="aa-color-cyan" href="#"></a>
+                <a class="aa-color-olive" href="#"></a>
+                <a class="aa-color-orchid" href="#"></a>
+              </div>                            
+            </div>
+            <!-- single sidebar -->
+            <div class="aa-sidebar-widget">
+              <h3>Recently Views</h3>
+              <div class="aa-recently-views">
+                <ul>
+                  <li>
+                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-2.jpg"></a>
+                    <div class="aa-cartbox-info">
+                      <h4><a href="#">Product Name</a></h4>
+                      <p>1 x $250</p>
+                    </div>                    
+                  </li>
+                  <li>
+                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-1.jpg"></a>
+                    <div class="aa-cartbox-info">
+                      <h4><a href="#">Product Name</a></h4>
+                      <p>1 x $250</p>
+                    </div>                    
+                  </li>
+                   <li>
+                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-2.jpg"></a>
+                    <div class="aa-cartbox-info">
+                      <h4><a href="#">Product Name</a></h4>
+                      <p>1 x $250</p>
+                    </div>                    
+                  </li>                                      
+                </ul>
+              </div>                            
+            </div>
+            <!-- single sidebar -->
+            <div class="aa-sidebar-widget">
+              <h3>Top Rated Products</h3>
+              <div class="aa-recently-views">
+                <?php
+
+                      $sql8 = "SELECT * FROM products WHERE price BETWEEN 12000 AND 80000";
+                      $result8 = $conn->query($sql8);
+
+                      if ($result8->num_rows > 0) {
+                        // output data of each row
+                        echo '<ul>';
+                        while($row8 = $result8->fetch_assoc()) {
+                          echo "<li>";
+                          echo '<a href="#" class="aa-cartbox-img"><img alt="img" src="admin/images/'.$row8['image'].'"></a>';
+                          echo '<div class="aa-cartbox-info">
+                          ';
+                          echo '<h4><a href="#">'.$row8['name'].'</a></h4>';
+                          echo ' <p>&#8377;'.$row8['price'].'</p>
+                          ';
+                          echo '</div>';
+                          echo '</li>';
+                        
+
+                        }
+                      } else {
+                        echo "0 results";
+                      }
+
+                ?>
+
+                </ul>
+              </div>                            
+                                        
+            </div>
+          </aside>
+        </div>
+       
+      </div>
+    </div>
+  </section>
+  <!-- / product category -->
+
 
   <!-- Subscribe section -->
   <section id="aa-subscribe">
@@ -541,6 +917,8 @@
     </div><!-- /.modal-dialog -->
   </div>
 
+
+    
 
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

@@ -1,10 +1,80 @@
+<?php
+
+session_start();
+
+
+
+
+
+// //print_r($_SESSION['cart1']);
+// $html="";
+// //$html.="<form method='post' action='#'>";
+// $html.="<table border=2px solid black>";
+// $html.="<tr><th>Product Image</th><th>Product Name</th><th>Product Price</th><th>Quantity</th><th>Action</th><th>Action</th><th>Total Price</tr>";
+// $sum=0;
+// foreach ($_SESSION['cart1'] as $key=>$value) {
+//     $html.="<tr><td><img src=../images/".$value["img"]." 
+//     style='width:75px;height:75px'></td>";
+//     $html.="<td>".$value["name"]."</td>";
+//     $html.="<td>".$value["cost"]."</td>";
+//     $html.="<form action='phpsqlcartdisplay.php?update=".$key."'
+//      method='POST' enctype='multipart/form-data' name='form'><td>
+//     <input type='number' name='qty' id='qty' value='".$value["quantity"]."' 
+//     style='width:40px'></td>";
+//     $html.="<td><a href='phpsqlcartdisplay.php?id1=$key'>Delete</a></td>";
+//     $html.="<td><input type='submit' id='submit' name='submit' value='Update'</td>";
+    
+//     $html.="<td>".$value["cost"]*$value["quantity"]."</td></tr></form>";
+//     $a=$value["cost"]*$value["quantity"];
+    
+//     //var_dump($a);
+//     $sum+=$a;
+    
+
+// }
+
+// $html.="<tr><th>Total Cart Price</th><td colspan='4'>".$sum."</td>";
+    
+
+// $html.="</table>";
+// echo $html;
+
+
+
+// //$update=$_GET['update'];
+
+// if (isset($_POST['submit'])) {
+//     foreach ($_SESSION['cart1'] as $key01=>$value01) {
+//         if ($key01==$_GET['update']) {
+//             $_SESSION['cart1'][$key01]['quantity']=$_POST['qty'];
+//             header("Location:productsql.php");
+//         }
+//     }
+
+// }
+
+
+// //$id1=$_GET['id1'];
+// if (isset($_GET['id1'])) {
+//         unset($_SESSION['cart1'][$_GET['id1']]);
+//         header("Location:productsql.php");
+        
+// }
+
+
+// ?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">    
-    <title>Daily Shop | Contact</title>
+    <title>Daily Shop | Cart Page</title>
     
     <!-- Font awesome -->
     <link href="css/font-awesome.css" rel="stylesheet">
@@ -39,17 +109,18 @@
     <![endif]-->
 
   </head>
-  <body> 
-    <!-- wpf loader Two -->
+  <body>
+   
+   <!-- wpf loader Two -->
     <div id="wpf-loader-two">          
       <div class="wpf-loader-two-inner">
         <span>Loading</span>
       </div>
     </div> 
     <!-- / wpf loader Two -->       
-    <!-- SCROLL TOP BUTTON -->
+ <!-- SCROLL TOP BUTTON -->
     <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
-    <!-- END SCROLL TOP BUTTON -->
+  <!-- END SCROLL TOP BUTTON -->
 
 
   <!-- Start header section -->
@@ -294,7 +365,7 @@
                 </ul>
               </li>
               <li><a href="#">Furniture</a></li>            
-              <li><a href="blog-archive.html">Blog <span class="caret"></span></a>
+               <li><a href="blog-archive.html">Blog <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
                   <li><a href="blog-archive.html">Blog Style 1</a></li>
                   <li><a href="blog-archive-2.html">Blog Style 2</a></li>
@@ -324,79 +395,83 @@
    <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
-        <h2>Contact</h2>
+        <h2>Cart Page</h2>
         <ol class="breadcrumb">
-          <li><a href="index.html">Home</a></li>         
-          <li class="active">Contact</li>
+          <li><a href="index.html">Home</a></li>                   
+          <li class="active">Cart</li>
         </ol>
       </div>
      </div>
    </div>
   </section>
   <!-- / catg header banner section -->
-<!-- start contact section -->
- <section id="aa-contact">
+
+ <!-- Cart view section -->
+ <section id="cart-view">
    <div class="container">
      <div class="row">
        <div class="col-md-12">
-         <div class="aa-contact-area">
-           <div class="aa-contact-top">
-             <h2>We are wating to assist you..</h2>
-             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, quos.</p>
-           </div>
-           <!-- contact map -->
-           <div class="aa-contact-map">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.3714257064535!2d-86.7550931378034!3d34.66757706940219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8862656f8475892d%3A0xf3b1aee5313c9d4d!2sHuntsville%2C+AL+35813%2C+USA!5e0!3m2!1sen!2sbd!4v1445253385137" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-           </div>
-           <!-- Contact address -->
-           <div class="aa-contact-address">
-             <div class="row">
-               <div class="col-md-8">
-                 <div class="aa-contact-address-left">
-                   <form class="comments-form contact-form" action="">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">                        
-                          <input type="text" placeholder="Your Name" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">                        
-                          <input type="email" placeholder="Email" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                     <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">                        
-                          <input type="text" placeholder="Subject" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">                        
-                          <input type="text" placeholder="Company" class="form-control">
-                        </div>
-                      </div>
-                    </div>                  
-                     
-                    <div class="form-group">                        
-                      <textarea class="form-control" rows="3" placeholder="Message"></textarea>
-                    </div>
-                    <button class="aa-secondary-btn">Send</button>
-                  </form>
-                 </div>
-               </div>
-               <div class="col-md-4">
-                 <div class="aa-contact-address-right">
-                   <address>
-                     <h4>DailyShop</h4>
-                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum modi dolor facilis! Nihil error, eius.</p>
-                     <p><span class="fa fa-home"></span>Huntsville, AL 35813, USA</p>
-                     <p><span class="fa fa-phone"></span>+ 021.343.7575</p>
-                     <p><span class="fa fa-envelope"></span>Email: support@dailyshop.com</p>
-                   </address>
-                 </div>
-               </div>
+         <div class="cart-view-area">
+           <div class="cart-view-table">
+             <form action="">
+               <div class="table-responsive">
+               <?php
+               $html="";
+        $html.=" <table class='table'>";
+        $html.=" <thead><tr><th></th><th></th>";
+        $html.="<th>Product</th><th>Price</th><th>Quantity</th><th>Total</th></tr></thead><tbody>";
+        $sum=0;
+        foreach ($_SESSION['cart1'] as $key=>$value) {
+            $html.='<td><a class="remove" href="cartdisplay.php?id1='.$key.'"><fa class="fa fa-close"></fa></a></td>';
+            $html.='<td><a href="#"><img src="admin/images/'.$value["image"].'" alt="img"></a></td>';
+            $html.='<td><a class="aa-cart-title" href="#">'.$value["name"].'</a></td>';
+            $html.="<td>".$value["price"]."</td>";
+            $html.="<form action='cartdisplay.php?update=".$key."'
+             method='POST' enctype='multipart/form-data' name='form'><td>
+            <input class='aa-cart-quantity' type='number' name='qty' id='qty' value='".$value["quantity"]."' 
+            style='width:40px'></td>";
+           // $html.="<td><input type='submit' id='submit' name='submit' value='Update'</td>";
+            
+            $html.="<td>".$value["price"]*$value["quantity"]."</td></tr>";
+            $a=$value["price"]*$value["quantity"];
+            
+            //var_dump($a);
+            $sum+=$a;
+        }
+        
+
+               ?>
+
+                <?php echo $html ?>
+                      <tr>
+                        <td colspan="6" class="aa-cart-view-bottom">
+                          <div class="aa-cart-coupon">
+                            <input class="aa-coupon-code" type="text" placeholder="Coupon">
+                            <input class="aa-cart-view-btn" type="submit" value="Apply Coupon">
+                          </div>
+                          <input class="aa-cart-view-btn" type="submit" value="Update Cart" name="submit"></form>
+                        </td>
+                      </tr>
+                      </tbody>
+                  </table>
+                  </div>
+             </form>
+             <!-- Cart Total view -->
+             <div class="cart-view-total">
+               <h4>Cart Totals</h4>
+               <table class="aa-totals-table">
+                 <tbody>
+                   <tr>
+                     <th>Subtotal</th>
+                     <td><?php echo $sum?></td>
+                   </tr>
+                   <tr>
+                     <th>Total</th>
+                     <td><?php echo $sum?></td>
+                   </tr>
+                 </tbody>
+               </table>
+              <?php echo '<a href="checkout.php?amount='.$sum.'" class="aa-cart-view-btn">Proced to Checkout</a>'; ?>
              </div>
            </div>
          </div>
@@ -404,6 +479,32 @@
      </div>
    </div>
  </section>
+
+
+ <?php
+
+    if (isset($_POST['submit'])) {
+        foreach ($_SESSION['cart1'] as $key01=>$value01) {
+            if ($key01==$_GET['update']) {
+                $_SESSION['cart1'][$key01]['quantity']=$_POST['qty'];
+                header("Location:cartdisplay.php");
+            }
+        }
+      
+    }
+          
+  
+    if (isset($_GET['id1'])) {
+         unset($_SESSION['cart1'][$_GET['id1']]);
+          header("Location:cartdisplay.php");
+          
+    }
+
+
+
+    ?>
+ <!-- / Cart view section -->
+
 
   <!-- Subscribe section -->
   <section id="aa-subscribe">
@@ -542,27 +643,27 @@
   </div>
 
 
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.js"></script>  
-  <!-- SmartMenus jQuery plugin -->
-  <script type="text/javascript" src="js/jquery.smartmenus.js"></script>
-  <!-- SmartMenus jQuery Bootstrap Addon -->
-  <script type="text/javascript" src="js/jquery.smartmenus.bootstrap.js"></script>  
-  <!-- To Slider JS -->
-  <script src="js/sequence.js"></script>
-  <script src="js/sequence-theme.modern-slide-in.js"></script>  
-  <!-- Product view slider -->
-  <script type="text/javascript" src="js/jquery.simpleGallery.js"></script>
-  <script type="text/javascript" src="js/jquery.simpleLens.js"></script>
-  <!-- slick slider -->
-  <script type="text/javascript" src="js/slick.js"></script>
-  <!-- Price picker slider -->
-  <script type="text/javascript" src="js/nouislider.js"></script>
-  <!-- Custom js -->
-  <script src="js/custom.js"></script> 
-  
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.js"></script>  
+    <!-- SmartMenus jQuery plugin -->
+    <script type="text/javascript" src="js/jquery.smartmenus.js"></script>
+    <!-- SmartMenus jQuery Bootstrap Addon -->
+    <script type="text/javascript" src="js/jquery.smartmenus.bootstrap.js"></script>  
+    <!-- To Slider JS -->
+    <script src="js/sequence.js"></script>
+    <script src="js/sequence-theme.modern-slide-in.js"></script>  
+    <!-- Product view slider -->
+    <script type="text/javascript" src="js/jquery.simpleGallery.js"></script>
+    <script type="text/javascript" src="js/jquery.simpleLens.js"></script>
+    <!-- slick slider -->
+    <script type="text/javascript" src="js/slick.js"></script>
+    <!-- Price picker slider -->
+    <script type="text/javascript" src="js/nouislider.js"></script>
+    <!-- Custom js -->
+    <script src="js/custom.js"></script> 
 
   </body>
 </html>
